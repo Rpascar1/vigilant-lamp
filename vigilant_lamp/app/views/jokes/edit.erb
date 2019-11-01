@@ -1,0 +1,14 @@
+<h1>edit page</h1>
+
+<form action="/jokes/<%= @joke.id%>" method="post">
+<input type="hidden" name="_method" value="patch">
+
+  <label>Name of Joke<input type="text" name="name" id="name" value="<%= @joke.name%>"</label><br>
+
+  <label>Joke description<input type="text" name="body" id="body" value="<%= @joke.body%>"</label><br>
+
+  <label>Is Joke complete?<input type="text" name="status" id="status" value="<%= @joke.status%>"</label><br>
+
+  <input type="submit" name="create_joke" value="Save Joke">
+
+</form>

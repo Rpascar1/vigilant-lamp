@@ -7,5 +7,5 @@ end
 
 use Rack::MethodOverride
 use UsersController
-use Jokescontroller
+use JokesController
 run ApplicationController
