@@ -1,7 +1,12 @@
 class JokesController < ApplicationController
 
   get '/' do
-    @joke = Joke.all
+    @jokes = Joke.all
+    erb:"/jokes/index"
+  end
+
+  get '/jokes' do
+    @jokes = Joke.all
     erb:"/jokes/index"
   end
 
@@ -23,7 +28,6 @@ class JokesController < ApplicationController
       redirect "/jokes/new"
     end
   end
-
 
   get '/jokes/:id' do
     @joke = Joke.find_by_id(params[:id])
@@ -49,7 +53,7 @@ class JokesController < ApplicationController
   delete "/jokes/:id" do
     @joke = joke.find_by_id(params[:id])
     @joke.destroy
-    redirect "/jokesindex"
+    redirect "/jokes/index"
   end
 
 
