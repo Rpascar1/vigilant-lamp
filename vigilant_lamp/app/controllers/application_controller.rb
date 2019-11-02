@@ -17,18 +17,16 @@ class ApplicationController < Sinatra::Base
   		status 404
   		erb :error
     end
-    
+
   helpers do
 
     def current_user
-      @user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+      @current_user ||= User.find_by(id: session[:user_id])
     end
 
     def logged_in?
-      !!session[:user_id]
+      current_user.present?
     end
 
   end
-
-
 end

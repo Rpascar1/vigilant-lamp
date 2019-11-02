@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # User.create(
 #   username: "Corinna_Red",
 #   email: "CR5551029@gmail.com",
@@ -13,7 +15,6 @@
 #   )
 # end
 
-
 5.times do
-  User.create(username: Faker::Internet.username, email: Faker::Internet.email, password: "passwordy1")
+  User.create(username: Faker::Internet.username, email: Faker::Internet.email, password: 'passwordy1')
 end

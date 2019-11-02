@@ -1,60 +1,62 @@
+# frozen_string_literal: true
+
 class JokesController < ApplicationController
 
-  get '/' do
-    @jokes = Joke.all
-    erb:"/jokes/index"
+  before do
+    redirect to "/login" unless current_user
   end
+
+  # get '/' do
+  #   @jokes = Joke.all
+  # end
 
   get '/jokes' do
     @jokes = Joke.all
-    erb:"/jokes/index"
+    erb :"/jokes"
   end
 
-  get "/jokes/new" do
-      if logged_in?
-        erb:"/jokes/new"
-      else
-        redirect "/login"
-      end
+  get '/jokes/new' do
+    binding.pry
+    erb :"/jokes/new"
   end
 
-  post "/jokes" do
-    if params[:name] != "" && params[:body] != "" && parmas[:status] != ""
-      @joke = Joke.new(params)
-      @joke.user = current_user
-      @joke.save
-      redirect to "/jokes/index"
-    else
-      redirect "/jokes/new"
-    end
+  post '/jokes' do
+    redirect to '/jokes/new' unless params[:body].present?
+
+    @joke = current_user.jokes.build(body: params[:body])
+    path = @joke.save ? "/jokes/#{@joke.id}" :'/jokes/new'
+
+    redirect to path
   end
 
   get '/jokes/:id' do
-    @joke = Joke.find_by_id(params[:id])
-    erb:"/jokes/show"
+    @joke = Joke.find(params[:id])
+    erb :"/jokes/show"
   end
 
   get '/jokes/:id/edit' do
-    @joke = Joke.find_by_id(params[:id])
-    erb:"/jokes/edit"
-  end
-
-  patch "/jokes/:id" do
-    if params[:name] != "" && params[:body] != "" && parmas[:status] != ""
-      @joke = Joke.update(name: params[:name], body: params[:body], status: params[:status])
-      @joke.user = current_user
-      @joke.save
-      redirect to "/jokes/index"
+    @joke = Joke.find(params[:id])
+    if @joke&.user == current_user
+      erb :'jokes/edit_joke'
     else
-      redirect "/jokes/new"
+      redirect to '/jokes'
     end
   end
 
-  delete "/jokes/:id" do
-    @joke = joke.find_by_id(params[:id])
-    @joke.destroy
-    redirect "/jokes/index"
+  patch '/jokes/:id' do
+    redirect to "/jokes/#{params[:id]}/edit" unless params[:body].present?
+
+    @joke = Joke.find(params[:id])
+    redirect to '/jokes/' unless @joke
+
+    @joke.update(body: params[:body]) if @joke.user == current_user
+    redirect to "/jokes/#{@joke.id}"
+    end
+
+
+  delete '/jokes/:id/delete' do
+      @joke = Joke.find_by_id(params[:id])
+      @joke.delete if @joke && @joke.user == current_user
+      redirect to '/jokes'
   end
-
-
 end
