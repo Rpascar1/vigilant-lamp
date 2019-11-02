@@ -31,12 +31,11 @@ class UsersController < ApplicationController
     unless current_user
       erb :"users/login"
     else
-      erb :"/jokes"
+      erb :"/jokes/index"
     end
   end
 
   post '/login' do
-
     user = User.find_by(username: params[:username])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
@@ -47,7 +46,7 @@ class UsersController < ApplicationController
   end
 
   get '/logout' do
-    @current_user = nil
-    redirect to '/login'
+    session.destroy
+    redirect to '/'
   end
 end

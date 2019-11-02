@@ -1,6 +1,15 @@
-<h1>Show page</h1>
+<h1>All Jokes in Vault</h1>
+<% @jokes = current_user.jokes %>
 <% @jokes.each do |joke| %>
   <div>
-    <%= joke.body %>
+    <%= joke.name %><br>
+    <%= joke.body %><br>
+    <%= joke.status %><br>
+    <a href="/edit">Edit Joke<%= joke.id %><br></a>
+
   </div>
 <% end %>
+
+<a href="/login">Account home</a>
+
+<a href="/edit">Edit Joke</a>

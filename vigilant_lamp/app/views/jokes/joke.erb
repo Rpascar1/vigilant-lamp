@@ -1,0 +1,16 @@
+<h1>Single Joke</h1>
+
+<p><%= @joke.name %>
+<p><%= @joke.body %>
+<p><%= @joke.status %>
+
+<form method="post" action="/jokes/<%=@joke.id%>/delete">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<input type="submit" value="Delete Joke">
+</form>
+
+<a href="/jokes/<%=@joke.id%>/edit">Edit jokes </a>
+<a href="/login">Account home</a>
+<a href="/logout">Log Out</a>
+
+<a href="/edit">Edit Joke</a>

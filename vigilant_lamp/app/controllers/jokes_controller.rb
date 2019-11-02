@@ -12,18 +12,20 @@ class JokesController < ApplicationController
 
   get '/jokes' do
     @jokes = Joke.all
-    erb :"/jokes"
+    erb :"/show"
   end
 
   get '/jokes/new' do
-    binding.pry
     erb :"/jokes/new"
   end
 
+  get '/jokes/show' do
+    erb :"/jokes/show"
+  end
   post '/jokes' do
     redirect to '/jokes/new' unless params[:body].present?
 
-    @joke = current_user.jokes.build(body: params[:body])
+    @joke = current_user.jokes.build(body: params[:body], status: params[:status], name: params[:name])
     path = @joke.save ? "/jokes/#{@joke.id}" :'/jokes/new'
 
     redirect to path
@@ -31,8 +33,9 @@ class JokesController < ApplicationController
 
   get '/jokes/:id' do
     @joke = Joke.find(params[:id])
-    erb :"/jokes/show"
+    erb :"/jokes/joke"
   end
+
 
   get '/jokes/:id/edit' do
     @joke = Joke.find(params[:id])
