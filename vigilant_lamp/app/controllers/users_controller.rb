@@ -1,37 +1,29 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  # get"/user/:id" do
-  #   if @user = User.find(params[:id])
-  #     erb:"users/show"
-  #   else
-  #     redirect "/"
-  #   end
-  # end
-
   get '/signup' do
     if !logged_in?
-      redirect to :"users/signup"
+      erb :"users/signup"
     else
       redirect to '/jokes'
     end
   end
 
   post '/signup' do
-    if params[:username] != '' && params[:password] != ''
+    if params[:username] != '' && params[:password] != '' && params[:email].match(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
       @user = User.create(params)
       session[:user_id] = @user.id
       redirect to '/jokes/new'
     else
-      erb :"/signup"
+      redirect to '/signup'
     end
   end
 
   get '/login' do
-    unless current_user
-      erb :"users/login"
-    else
+    if current_user
       erb :"/jokes/index"
+    else
+      erb :"users/login"
     end
   end
 
@@ -41,7 +33,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       erb :"/jokes/index"
     else
-      redirect to '/login'
+      redirect to '/signup'
     end
   end
 

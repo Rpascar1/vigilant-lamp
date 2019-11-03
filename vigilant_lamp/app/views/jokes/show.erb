@@ -2,14 +2,14 @@
 <% @jokes = current_user.jokes %>
 <% @jokes.each do |joke| %>
   <div>
-    <%= joke.name %><br>
-    <%= joke.body %><br>
-    <%= joke.status %><br>
-    <a href="/jokes/<%= joke.id %>/edit">Edit Joke<%= joke.id %><br></a>
+    <label for="">Joke Name:</label> <%= joke.name %><br>
+    <label for=""><bdi dir="rtl"></bdi>Body of joke: :</label><%= joke.body %><br>
+    <label for="">Are you still working on this?</label><br> <%= joke.status %><br>
+    <a href="/jokes/<%= joke.id %>/edit">Edit or Delete Joke<br></a>
+    <label for="">-------------------------</label><br>
+
 
   </div>
 <% end %>
-
-<a href="/login">Account home</a>
-
-<a href="/edit">Edit Joke</a>
+<a href="/jokes/new"> Create Joke </a><br> 
+<br><a href="/login">Account home</a><br><a href="/logout">Log Out</a>

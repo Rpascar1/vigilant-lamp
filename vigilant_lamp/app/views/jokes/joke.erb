@@ -1,16 +1,21 @@
-<h1>Single Joke</h1>
+<h1>Would you like to make it funnier? You should.</h1><br>
 
-<p><%= @joke.name %>
-<p><%= @joke.body %>
-<p><%= @joke.status %>
+<body>
 
-<form method="post" action="/jokes/<%=@joke.id%>/delete">
-<input id="hidden" type="hidden" name="_method" value="DELETE">
-<input type="submit" value="Delete Joke">
-</form>
+Name of Joke:<p><%= @joke.name %></p>
 
-<a href="/jokes/<%=@joke.id%>/edit">Edit jokes </a>
-<a href="/login">Account home</a>
+Joke body:<p><%= @joke.body %></p>
+
+Still working? <p><%= @joke.status %></p>
+
+<br><a href="/jokes/<%=@joke.id%>/edit">Edit joke </a><br>
+<p>-------------------------</p>
+<br><form class="" action="/jokes/<%= @joke.id%>" method="POST">
+<input type="hidden" name="_method" value="DELETE">
+<input type="submit" name="Delete Joke" value="Delete Joke">
+
+<br><a href="/jokes/show"> See All in Vault </a> or go to <a href="/login">Account home</a><br>
 <a href="/logout">Log Out</a>
 
-<a href="/edit">Edit Joke</a>
+</form>
+</body>

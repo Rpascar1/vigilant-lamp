@@ -1,7 +1,28 @@
-<h1>Login to the Vault!</h1>
+<!-- <h1>Login to  Vault!</h1>
 <form method="post" action="/login">
   <input type="text" name="username" placeholder="Username:">
   <input type="password" name="password" placeholder="Password:">
 
   <input type="submit" value="submit">
+</form> -->
+
+
+<form action="/login" method="POST" style="border:1px solid #ccc">
+  <div class="container">
+    <h3>Login to the Vault!.</h3>
+
+
+    <br><label for="username"><b>Username:</b></label>
+    <input type="text" placeholder="Enter Username" name="username" id="username" required>
+    <label for="psw"><b>Password:</b></label>
+    <input type="password" placeholder="Enter Password" id="password" name="password" required>
+
+
+
+    <div class="clearfix">
+      <br>  <input class="btn btn-primary" style="background-color:#212529" type="submit">
+      <br>
+      <br><small><a href="/">cancel</a></small>
+    </div>
+  </div>
 </form>

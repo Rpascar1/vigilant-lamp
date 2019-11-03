@@ -13,11 +13,11 @@
 
 
 </form>
-
-<a href="/logout">Log Out</a>
 <form class="" action="/jokes/<%= @joke.id%>" method="POST">
 <input type="hidden" name="_method" value="DELETE">
 <input type="submit" name="Delete Joke" value="Delete Joke">
 
+<br><a href="/jokes/show"> See All in Vault </a> or go to <a href="/login">Account home</a><br>
+<a href="/logout">Log Out</a>
 
 </form>
