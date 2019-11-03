@@ -6,13 +6,13 @@ class JokesController < ApplicationController
     redirect to "/login" unless current_user
   end
 
-  # get '/' do
-  #   @jokes = Joke.all
-  # end
+  get "/jokes/edit" do
+     redirect to "/jokes/show"
+  end
 
   get '/jokes' do
     @jokes = Joke.all
-    erb :"/show"
+    erb :"/jokes/show"
   end
 
   get '/jokes/new' do
@@ -22,6 +22,7 @@ class JokesController < ApplicationController
   get '/jokes/show' do
     erb :"/jokes/show"
   end
+
   post '/jokes' do
     redirect to '/jokes/new' unless params[:body].present?
 
@@ -33,18 +34,28 @@ class JokesController < ApplicationController
 
   get '/jokes/:id' do
     @joke = Joke.find(params[:id])
-    erb :"/jokes/joke"
+    erb :"jokes/joke"
+
   end
 
-
-  get '/jokes/:id/edit' do
+  get "/jokes/:id/edit" do
     @joke = Joke.find(params[:id])
-    if @joke&.user == current_user
-      erb :'jokes/edit_joke'
+    if @joke.user_id != current_user.id
+      session.destroy
+      redirect to "/login"
     else
-      redirect to '/jokes'
-    end
+      erb:"/jokes/edit"
   end
+end
+
+  # get '/jokes/edit' do
+  #    @joke = Joke.find_by_id(params[:id])
+  #   if @joke&.user == current_user
+  #     erb:"jokes/#{@joke.id}"
+  #   else
+  #     redirect to '/jokes'
+  #   end
+  # end
 
   patch '/jokes/:id' do
     redirect to "/jokes/#{params[:id]}/edit" unless params[:body].present?
@@ -56,10 +67,17 @@ class JokesController < ApplicationController
     redirect to "/jokes/#{@joke.id}"
     end
 
+get '/jokes/:id/delete' do
+  erb:'/jokes/:id'
+end
 
-  delete '/jokes/:id/delete' do
-      @joke = Joke.find_by_id(params[:id])
-      @joke.delete if @joke && @joke.user == current_user
-      redirect to '/jokes'
+  delete '/jokes/:id' do
+    @joke = Joke.find_by_id(params[:id])
+    path = @joke.delete ? "/jokes" :'/error'
+    redirect to path
+      # @joke = Joke.find_by_id(params[:id])
+      # @joke.delete if @joke && @joke.user == current_user
+      # redirect to '/jokes'
   end
+
 end

@@ -11,6 +11,13 @@
 
   <input type="submit" name="create_joke" value="Save Joke">
 
+
 </form>
 
 <a href="/logout">Log Out</a>
+<form class="" action="/jokes/<%= @joke.id%>" method="POST">
+<input type="hidden" name="_method" value="DELETE">
+<input type="submit" name="Delete Joke" value="Delete Joke">
+
+
+</form>

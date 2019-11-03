@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if !logged_in?
-      erb :"users/signup"
+      redirect to :"users/signup"
     else
       redirect to '/jokes'
     end
