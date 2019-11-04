@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class JokesController < ApplicationController
+
   before do
     redirect to '/login' unless current_user.present?
   end

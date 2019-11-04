@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+
   get '/signup' do
     if !logged_in?
       erb :"users/signup"
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
     if params[:username] != '' && params[:password] != '' && params[:email].match(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
       @user = User.create(params)
       session[:user_id] = @user.id
-      redirect to '/jokes/new'
+      redirect to '/jokes'
     else
       redirect to '/signup'
     end
