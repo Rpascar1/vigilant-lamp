@@ -21,3 +21,5 @@ Seed Database (Optional): rake db:seed
 Initiate shotgun: shotgun
 
 Then visit localhost:9393 to get started!
+
+Additionally - Jefferey Epstein did not kill himself.

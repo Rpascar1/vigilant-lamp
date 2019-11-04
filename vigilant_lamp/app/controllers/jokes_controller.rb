@@ -5,11 +5,6 @@ class JokesController < ApplicationController
     redirect to '/login' unless current_user.present?
   end
 
-  get '/jokes/edit' do
-    redirect to '/error' unless @joke.user_id = current_user.id
-    redirect to '/jokes/show'
-  end
-
   get '/jokes' do
     @jokes = Joke.all
     erb :"/jokes/show"
